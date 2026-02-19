@@ -1,0 +1,5 @@
+2025-02-23 18:15:10,024 - pyMMF.core [DEBUG  ]  Debug mode ON.
+2025-02-23 18:15:10,025 - pyMMF.solv [INFO   ]  Finding the propagation constant of step index fiber by numerically solving the dispersion relation.
+2025-02-23 18:15:10,431 - pyMMF.solv [INFO   ]  Found 55 modes is 0.41 seconds.
+2025-02-23 18:15:10,432 - pyMMF.solv [INFO   ]  Finding analytical LP mode profiles associated to the propagation constants.
+2025-02-23 18:15:11,911 - pyMMF.core [DEBUG  ]  Mode data stored in memory.
