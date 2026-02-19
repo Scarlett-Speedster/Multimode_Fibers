@@ -21,61 +21,85 @@ cd pyMMF-master/pyMMF-master
 pip install -e .
 ```
 
-### Basic Usage
+# Multimode Fibers — Quick Reference
+
+Lightweight overview and quick start for the multimode fiber simulation and research workspace.
+
+## What's new
+
+- Added project artifacts and deployment helpers: `predict.py`, `cog.yaml`, `build/`, `dist/`, and `pyMMF.log` files.
+- Top-level Research_Project.pdf is included for offline reading of the research report.
+
+## 📁 Directory snapshot
+
+| Path | Notes |
+|------|-------|
+| `pyMMF-master/pyMMF-master/` | Core package (pyMMF), examples, build artifacts (`build/`, `dist/`) and `predict.py` (Cog interface) |
+| `source/` | Research Jupyter notebooks and a project log (`pyMMF.log`) |
+| `Images/` | Visualizations and experimental outputs (~60 images) |
+| `Trial/` | Experimental mode analyses and NN experiment figures (~30 images) |
+| `Research_Project.pdf` | Research write-up / report |
+
+## ⚡ Quick start
+
+Install the package in editable mode and run the notebook examples:
+
+```bash
+cd pyMMF-master/pyMMF-master
+pip install -e .
+# then open the example notebooks in `example/`
+```
+
+Basic interactive use (python):
+
 ```python
 import pyMMF
-
-# Create fiber profile
 profile = pyMMF.IndexProfile(n1=1.46, a=2.5e-6, alpha=2.0)
-
-# Compute modes
 solver = pyMMF.propagationModeSolver()
 modes = solver.solve(profile=profile, mode='radial', wavelength=1550e-9)
-
-# Get transmission matrix
 TM = modes.newTM(length=2.0)
 ```
 
-### Run Examples
-- `pyMMF-master/pyMMF-master/example/RadialSolverGRIN.ipynb` - GRIN modes
-- `pyMMF-master/pyMMF-master/example/Benchmark_SI.ipynb` - SI benchmarks
+## ⚙️ Notable files and folders
+
+- `pyMMF-master/pyMMF-master/predict.py` — prediction/deployment interface (Cog)
+- `pyMMF-master/pyMMF-master/cog.yaml` — deployment metadata for `predict.py`
+- `pyMMF-master/pyMMF-master/build/`, `dist/`, `pyMMF.egg-info/` — build/distribution artifacts
+- `pyMMF-master/pyMMF-master/pyMMF.log` and `source/pyMMF.log` — runtime/log files
+- `pyMMF-master/pyMMF-master/setup.py`, `LICENSE` — packaging and license
+
+## 📂 Source files (new)
+
+The `source/` directory now contains the following files:
+
+- `source/Uniform_Distribution.ipynb` — notebook demonstrating uniform distribution sampling and analysis
+- `source/Research Project (1).ipynb` — primary research notebook for experiments and results
+- `source/20240115_Research Project (1)_DP.ipynb` — dated project draft with additional analysis
+- `source/pyMMF.log` — runtime log capturing execution details and warnings
+
+## Available solvers (high level)
+
+| Solver | Best for |
+|--------|----------|
+| SI     | Ideal step-index fibers (fast, semi-analytical) |
+| Radial | Axisymmetric / GRIN profiles (fast numeric) |
+| eig2D  | Arbitrary index profiles and bent fibers (flexible) |
+| WKB    | Approximate estimates for parabolic GRIN |
+
+## Dependencies
+
+Required: numpy, scipy, matplotlib, numba, joblib
+
+Optional: jupyter, tensorflow or pytorch for ML experiments
+
+## Where to look next
+
+- Examples: `pyMMF-master/pyMMF-master/example/` (open the notebooks)
+- Core code: `pyMMF-master/pyMMF-master/pyMMF/` (core.py, index_profile.py, solvers/)
+- Experiments and figures: `Images/` and `Trial/`
+- Research document: `Research_Project.pdf`
 
 ---
 
-## 🔧 Available Solvers
-
-| Solver | Type | Best For | Speed |
-|--------|------|----------|-------|
-| **SI** | Semi-analytical | Step-index fibers | ⚡⚡⚡ |
-| **Radial** | Numerical | GRIN profiles | ⚡⚡ |
-| **eig2D** | Eigenvalue | Arbitrary profiles | ⚡ |
-| **WKB** | Approximation | Parabolic GRIN | ⚡⚡⚡ |
-
----
-
-## 📦 Dependencies
-
-```
-numpy, scipy, matplotlib, numba, joblib
-```
-
-Optional: `jupyter`, `tensorflow`, `pytorch`
-
----
-
-## 📂 pyMMF Package Structure
-
-```
-pyMMF/
-├── core.py              # Main solver interface
-├── modes.py             # Mode utilities
-├── index_profile.py     # Fiber profiles
-├── functions.py         # Helper functions
-├── logger.py            # Logging
-└── solvers/
-    ├── SI.py            # Step-index solver
-    ├── radial.py        # Radial solver
-    ├── eig2D.py         # 2D eigenvalue solver
-    └── WKB.py           # WKB approximation
-```
+**Last updated**: February 2026
 
